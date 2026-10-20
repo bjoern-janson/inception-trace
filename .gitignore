@@ -1,0 +1,12 @@
+# Never commit unreviewed conversation sources or local analysis products.
+/raw/
+/derived/
+/private/
+/working/
+
+# Local Python state
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.DS_Store

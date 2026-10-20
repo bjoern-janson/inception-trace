@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/bjoern-janson/inception-trace/blob/main/schemas/source-record.schema.json",
+  "title": "Inception Trace byte-preserved source inventory record v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_id", "source_id", "relative_path", "sha256", "size_bytes", "encoding", "encoding_basis", "line_count", "filename_date_hint", "mtime_utc_observed", "duplicate_of", "unit_type"],
+  "properties": {
+    "record_id": {"type": "string", "pattern": "^file-[0-9a-f]{20}$"},
+    "source_id": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "relative_path": {"type": "string", "minLength": 1, "description": "Local path relative to the source root; may contain private information; never publish unreviewed."},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "size_bytes": {"type": "integer", "minimum": 0},
+    "encoding": {"type": ["string", "null"]},
+    "encoding_basis": {"enum": ["bom", "zero_byte_pattern", "strict_utf8", "user_selected_fallback", "unresolved"]},
+    "line_count": {"type": ["integer", "null"], "minimum": 0},
+    "filename_date_hint": {"type": ["string", "null"], "format": "date", "description": "Unverified hint extracted solely from filename."},
+    "mtime_utc_observed": {"type": "string", "format": "date-time", "description": "Filesystem modification time observed at inventory, not conversation time."},
+    "duplicate_of": {"type": ["string", "null"], "pattern": "^file-[0-9a-f]{20}$"},
+    "unit_type": {"const": "source_file_unknown_message_count"}
+  }
+}

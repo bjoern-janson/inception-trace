@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/bjoern-janson/inception-trace/blob/main/schemas/candidate-case.schema.json",
+  "title": "Candidate scientific connection / claim review v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "title", "record_ids", "selection_lane", "claim", "status", "prompt_presence", "origin_attribution", "date_basis", "model_basis", "claim_ceiling"],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "record_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^file-[0-9a-f]{20}$"}},
+    "selection_lane": {"enum": ["coverage", "high_signal", "pre_exposed"]},
+    "claim": {"type": "string", "minLength": 1},
+    "status": {"enum": ["unreviewed", "candidate", "reconstructed", "supported_scoped", "partially_supported", "unsupported", "refuted", "contaminated", "unresolved"]},
+    "prompt_presence": {"enum": ["original_present", "partial", "missing", "unknown"]},
+    "origin_attribution": {"enum": ["in_user_prompt", "suggested_in_assistant_reply", "shared", "unknown"]},
+    "date_basis": {"enum": ["platform_timestamp", "external_contemporaneous", "filename_hint", "filesystem_mtime", "reconstructed", "unknown"]},
+    "model_basis": {"enum": ["platform_record", "contemporaneous_notice", "user_recollection", "unknown"]},
+    "model_label": {"type": ["string", "null"]},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "prior_art_refs": {"type": "array", "items": {"type": "string"}},
+    "counterexamples": {"type": "array", "items": {"type": "string"}},
+    "alternative_explanations": {"type": "array", "items": {"type": "string"}},
+    "claim_ceiling": {"type": "string", "minLength": 1},
+    "supersedes": {"type": "array", "items": {"type": "string"}}
+  }
+}
